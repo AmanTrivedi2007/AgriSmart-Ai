@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-secondary: var(--secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-surface: var(--surface);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+}
+
+@layer base {
+  :root {
+    --primary: #0d631b;
+    --primary-container: #2e7d32;
+    --secondary: #126d27;
+    --secondary-container: #9cf49c;
+    --tertiary: #005e69;
+    --tertiary-container: #007986;
+    --surface: #f4faff;
+    --surface-container-low: #e9f6fd;
+    --surface-container: #e3f0f8;
+    --surface-container-high: #ddeaf2;
+    --surface-container-highest: #d7e4ec;
+    --surface-container-lowest: #ffffff;
+    --on-surface: #111d23;
+    --on-surface-variant: #40493d;
+  }
+
+  .dark {
+    --primary: #88d982;
+    --primary-container: #0d631b;
+    --secondary: #9ff79f;
+    --secondary-container: #126d27;
+    --tertiary: #98f0ff;
+    --tertiary-container: #005e69;
+    --surface: #0b1216;
+    --surface-container-low: #151d23;
+    --surface-container: #1d2b33;
+    --surface-container-high: #2a3d48;
+    --surface-container-highest: #37474f;
+    --surface-container-lowest: #1d2b33;
+    --on-surface: #f4faff;
+    --on-surface-variant: #aab7bd;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-body antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline tracking-tight;
+  }
+}
+
+.glass-nav {
+  @apply backdrop-blur-xl bg-surface/80;
+}
+
+.glass-card {
+  @apply backdrop-blur-md bg-white/20 border border-white/30;
+}
+
+.asymmetric-shadow {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.ambient-lift {
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
+}

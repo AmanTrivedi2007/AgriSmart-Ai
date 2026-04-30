@@ -1,0 +1,12 @@
+{
+  "name": "Farmi AI",
+  "description": "Intelligent greenhouse management dashboard with AI-driven diagnostics and editorial design.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "AI Diagnostics",
+    "Real-time Monitoring",
+    "Subscription Management"
+  ]
+}
