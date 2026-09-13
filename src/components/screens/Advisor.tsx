@@ -1,14 +1,21 @@
 import { Search, Mic, Brain, AlertTriangle, CheckCircle2, ChevronRight, History, Bolt } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFarm } from '@/src/context/FarmContext';
 interface AdvisorProps {
   sensorData: any[]
   alertsData: any[]
 }
 
 export function Advisor({ sensorData, alertsData }: AdvisorProps) {
+  const farm = useFarm();
   const [farmerQuestion, setFarmerQuestion] = useState('')
+
+  useEffect(() => {
+    if (!farm.advisorQuestion) return;
+    setFarmerQuestion(farm.advisorQuestion);
+  }, [farm.advisorQuestion]);
 const [aiResponse, setAiResponse] = useState('')
 const [isLoading, setIsLoading] = useState(false)
 const askAdvisor = async () => {

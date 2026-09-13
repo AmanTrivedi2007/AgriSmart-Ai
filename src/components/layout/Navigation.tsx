@@ -1,4 +1,4 @@
-import { Menu, User, Home, Brain, Bell, Settings, CreditCard } from 'lucide-react';
+import { Menu, Home, Brain, Bell, Settings, CreditCard, ScanLine } from 'lucide-react';
 import { NavTab } from '@/src/constants';
 import { motion } from 'motion/react';
 
@@ -41,6 +41,7 @@ interface BottomNavProps {
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   const tabs: { id: NavTab; label: string; icon: any }[] = [
     { id: 'home', label: 'Home', icon: Home },
+    { id: 'diagnosis', label: 'Diagnosis', icon: ScanLine },
     { id: 'advisor', label: 'Advisor', icon: Brain },
     { id: 'alerts', label: 'Alerts', icon: Bell },
     { id: 'subs', label: 'Subs', icon: CreditCard },
@@ -48,7 +49,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   ];
 
   return (
-    <nav className="fixed bottom-0 w-full z-50 glass-nav h-20 px-4 pb-safe border-t border-surface-container rounded-t-[2rem] shadow-[0_-10px_40px_rgba(17,29,35,0.06)] flex justify-around items-center">
+    <nav className="fixed bottom-0 w-full z-50 glass-nav h-20 px-2 pb-safe border-t border-surface-container rounded-t-[2rem] shadow-[0_-10px_40px_rgba(17,29,35,0.06)] flex justify-around items-center">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
