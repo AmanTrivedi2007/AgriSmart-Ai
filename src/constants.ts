@@ -1,4 +1,4 @@
-export type NavTab = 'home' | 'advisor' | 'alerts' | 'subs' | 'settings';
+export type NavTab = 'home' | 'diagnosis' | 'advisor' | 'alerts' | 'subs' | 'settings';
 
 export const SENSOR_DATA = [
   { id: 'temp', name: 'Ambient Temp', node: 'Node 04-A', icon: 'Thermometer', active: true },

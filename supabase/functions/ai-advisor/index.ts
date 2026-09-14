@@ -1,3 +1,5 @@
+/// <reference path="./deno.d.ts" />
+
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY")
 
 const corsHeaders = {
@@ -24,7 +26,7 @@ Keep language simple. The farmer is not a tech expert.
 Never leave any section empty.
 `
 
-Deno.serve(async (req) => {
+Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
@@ -69,9 +71,10 @@ ${farmerQuestion}
     )
 
   } catch (error) {
-    console.log("Error:", error.message)
+    const message = error instanceof Error ? error.message : String(error)
+    console.log("Error:", message)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: message }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     )
   }

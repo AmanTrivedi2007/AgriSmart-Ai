@@ -2,11 +2,13 @@ import { supabase } from './supabase'
 import { useState, useEffect, useRef } from 'react';
 import { Header, BottomNav } from '@/src/components/layout/Navigation';
 import { Dashboard } from '@/src/components/screens/Dashboard';
+import { Diagnose } from '@/src/components/screens/diagnose';
 import { Advisor } from '@/src/components/screens/Advisor';
 import { Alerts } from '@/src/components/screens/Alerts';
 import { Settings } from '@/src/components/screens/Settings';
 import { Subscriptions } from '@/src/components/screens/Subscriptions';
 import { NavTab } from '@/src/constants';
+import { FarmProvider } from '@/src/context/FarmContext';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
@@ -210,8 +212,9 @@ export default function App() {
   // Returns the correct screen component based on active tab
   const renderScreen = () => {
     switch (activeTab) {
-      case 'home':     return <Dashboard sensorData={sensorData} />;
-      case 'advisor':  return <Advisor sensorData={sensorData} alertsData={alertsData} />;
+      case 'home':       return <Dashboard sensorData={sensorData} />;
+      case 'diagnosis':  return <Diagnose onAdvisor={() => setActiveTab('advisor')} />;
+      case 'advisor':    return <Advisor sensorData={sensorData} alertsData={alertsData} />;
       case 'alerts':   return <Alerts alertsData={alertsData} />;
       case 'subs':     return <Subscriptions subscriptionData={subscriptionData} />;
       case 'settings': return <Settings isDarkMode={isDarkMode} onDarkModeToggle={setIsDarkMode} />;
@@ -222,6 +225,7 @@ export default function App() {
 
   // ─── RENDER ──────────────────────────────────────────────────
   return (
+    <FarmProvider>
     <div className="min-h-screen pb-32 transition-colors duration-500 bg-surface text-on-surface">
 
       {/* Top header bar */}
@@ -246,5 +250,6 @@ export default function App() {
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
 
     </div>
+    </FarmProvider>
   );
 }
