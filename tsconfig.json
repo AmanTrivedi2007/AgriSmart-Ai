@@ -22,6 +22,10 @@
     },
     "allowImportingTsExtensions": true,
     "noEmit": true
+<<<<<<< HEAD
   },
   "exclude": ["supabase/functions"]
+=======
+  }
+>>>>>>> modelCode
 }
