@@ -29,7 +29,7 @@ IMAGE_SIZE = 224
 
 app = FastAPI(
     title="Farmi AI Disease Detection API",
-    description="Plant disease detection using ConvNeXt-Tiny",
+    description="Plant disease detection using EfficientNet-B0",
     version="1.0.0"
 )
 
@@ -49,7 +49,7 @@ class_names = checkpoint["class_names"]
 num_classes = checkpoint["num_classes"]
 
 model = timm.create_model(
-    "convnext_tiny",
+    "efficientnet_b0",
     pretrained=False,
     num_classes=num_classes
 )
@@ -158,7 +158,7 @@ def root():
     return {
         "message": "Farmi AI Disease Detection API",
         "status": "running",
-        "model": "ConvNeXt-Tiny",
+        "model": "EfficientNet-B0",
         "classes": num_classes,
         "device": str(DEVICE)
     }
