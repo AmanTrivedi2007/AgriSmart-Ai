@@ -5,3 +5,4 @@ torch
 torchvision
 timm
 pillow
+huggingface_hub

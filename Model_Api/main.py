@@ -14,7 +14,16 @@ from torchvision import transforms
 # CONFIGURATION
 # ============================================================
 
-MODEL_PATH = "model/convnext_tiny.pth"
+from huggingface_hub import hf_hub_download
+
+HF_REPO_ID = "AmanTrivedi123/AgroSamrt"
+HF_FILENAME = "convnext_tiny.pth"
+
+MODEL_PATH = hf_hub_download(
+    repo_id=HF_REPO_ID,
+    filename=HF_FILENAME,
+    cache_dir="model"
+)
 
 DEVICE = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
