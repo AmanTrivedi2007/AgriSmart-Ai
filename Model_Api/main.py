@@ -7,6 +7,8 @@ import timm
 
 from PIL import Image
 from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 from torchvision import transforms
 
 
@@ -41,7 +43,13 @@ app = FastAPI(
     description="Plant disease detection using ConvNeXt-Tiny",
     version="1.0.0"
 )
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ============================================================
 # LOAD MODEL

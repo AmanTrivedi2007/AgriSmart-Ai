@@ -90,13 +90,28 @@ export function Diagnose({ onAdvisor }: { onAdvisor: () => void }) {
     return publicUrlData.publicUrl;
   };
 
+  const predictDisease = async (imageFile: File) => {
+  const formData = new FormData();
+  formData.append('file', imageFile);
+
+  const response = await fetch('http://localhost:8000/predict', {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Prediction failed: ${response.status}`);
+  }
+
+  return await response.json();
+};
   // ---- Supabase: insert the diagnosis result as a row in the table ----
   const saveDiagnosisToTable = async (imageUrl: string, diagnosis: Diagnosis) => {
     const { error: insertError } = await supabase.from(TABLE_NAME).insert({
       img_url: imageUrl,
 
       confidence: diagnosis.confidence,
-      crop: details.crop || null,
+      crop: diagnosis.details.crop || null,
       stage: details.stage || null,
       soil_type: details.soil || null,
       ph: details.ph === '' ? null : Number(details.ph),
@@ -138,13 +153,57 @@ export function Diagnose({ onAdvisor }: { onAdvisor: () => void }) {
       return;
     }
 
-    timer.current = setTimeout(async () => {
-      if (scenario === 'error') { setLoading(false); setFailure(true); return; }
-      const next = createDemoDiagnosis(scenario, details, sources);
-      setLoading(false);
-      setResult(next); farm.setLatest(next);
-      await saveDiagnosisToTable(imageUrl, next);
-    }, 1000);
+    try {
+  const prediction = await predictDisease(file);
+  
+  console.log('MODEL RESPONSE:', prediction);
+
+  const predictedCrop = prediction.crop;
+  const predictedDisease = prediction.disease;
+  const confidence = prediction.confidence;
+
+  const predictedDetails: FarmDetails = {
+    ...details,
+    crop: predictedCrop,
+  };
+
+  const next: Diagnosis = {
+    status: predictedDisease.toLowerCase() === 'healthy'
+      ? 'Healthy crop'
+      : 'Disease detected',
+
+    title: predictedDisease.toLowerCase() === 'healthy'
+      ? `${predictedCrop} looks healthy`
+      : `${predictedDisease} detected on ${predictedCrop}`,
+
+    confidence,
+
+    actions: predictedDisease.toLowerCase() === 'healthy'
+      ? [
+          'Continue regular watering and nutrient management.',
+          'Keep monitoring the leaves regularly for changes.',
+          'Maintain good airflow around the plants.',
+        ]
+      : [
+          'Remove severely affected leaves and keep them away from healthy plants.',
+          'Improve airflow around the plants and avoid unnecessary leaf wetting.',
+          'Monitor nearby plants for similar symptoms.',
+        ],
+
+    details: predictedDetails,
+  };
+
+  setLoading(false);
+  setResult(next);
+  farm.setLatest(next);
+
+  await saveDiagnosisToTable(imageUrl, next);
+
+} catch (error) {
+  console.error('Prediction failed:', error);
+  setLoading(false);
+  setFailure(true);
+}
   };
 
   return <div className="diagnosis-page space-y-7 pb-6">

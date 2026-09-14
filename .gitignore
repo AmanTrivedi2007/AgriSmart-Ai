@@ -6,4 +6,5 @@ coverage/
 *.log
 .env*
 !.env.example
-Model_Api/model/*.pth
+# Downloaded Hugging Face model cache
+Model_Api/model/
