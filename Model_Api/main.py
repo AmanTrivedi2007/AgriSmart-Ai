@@ -19,7 +19,7 @@ from torchvision import transforms
 from huggingface_hub import hf_hub_download
 
 HF_REPO_ID = "AmanTrivedi123/AgroSamrt"
-HF_FILENAME = "convnext_tiny.pth"
+HF_FILENAME = "convnext_tiny_best.pth"
 
 MODEL_PATH = hf_hub_download(
     repo_id=HF_REPO_ID,
