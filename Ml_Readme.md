@@ -9,11 +9,20 @@ Backend service that classifies plant leaf images into crop + disease using a Co
 | Architecture | ConvNeXt-Tiny (via `timm`) |
 | Input size | 224 × 224 RGB |
 | Classes | 38 (crop + disease/healthy combined, e.g. `Tomato___Late_blight`) |
-| Checkpoint file | `model/convnext_tiny.pth` |
+| Checkpoint source | Hugging Face Hub — downloaded automatically at startup |
 | Normalization | mean `[0.485, 0.456, 0.406]`, std `[0.229, 0.224, 0.225]` |
 | Training data | PlantVillage (lab images) + PlantDoc (real-world images) |
 
 The checkpoint stores `model_state_dict`, `class_names`, `class_to_idx`, and `num_classes` — the API loads class names directly from it, so no separate label file is needed.
+
+## Model Hosting
+
+The trained weights (`convnext_tiny.pth`, ~106 MB) are hosted on Hugging Face Hub, not committed to this repo, since GitHub's file size limit is 100 MB.
+
+- Hosted at: `https://huggingface.co/<your-username>/farmi-ai-convnext-tiny`
+- On startup, `main.py` calls `hf_hub_download()` to fetch and cache the file locally under `Model_Api/model/` — no manual download step needed.
+- First run downloads the file (may take a moment depending on connection); subsequent runs use the local cache.
+- If you retrain the model, re-upload the new `.pth` to the same Hugging Face repo (Files and versions → Add file → Upload files) to update it for everyone.
 
 ## Requirements
 
@@ -25,6 +34,7 @@ uvicorn[standard]
 torch
 torchvision
 timm
+huggingface_hub
 Pillow
 python-multipart
 ```
@@ -37,7 +47,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Wait a few seconds for the model to load — the server prints `Model loaded successfully.` once ready.
+On first launch, the server downloads the model from Hugging Face and caches it locally — this may take a moment. The server prints `Model loaded successfully.` once ready. Subsequent restarts load instantly from cache.
 
 - Interactive API docs (Swagger UI): `http://localhost:8000/docs`
 - Prediction endpoint: `http://localhost:8000/predict`
