@@ -191,8 +191,8 @@ Inside the `app` directory, create a file named:
 Add the Supabase project URL and anon key provided by the project team:
 
 ```env
-VITE_SUPABASE_URL=<SUPABASE_URL>
-VITE_SUPABASE_ANON_KEY=<SUPABASE_ANON_KEY>
+VITE_SUPABASE_URL=https://amrkhvszctilhhzeowoq.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcmtodnN6Y3RpbGhoemVvd29xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0ODU5MTUsImV4cCI6MjA5MDA2MTkxNX0.nKUiw_jD7gYLL0UIPM3Ek3G0qnEDXWqY5opczqynJZ0
 ```
 
 Do not commit `.env.local` to GitHub.
