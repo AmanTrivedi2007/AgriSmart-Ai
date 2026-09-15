@@ -921,7 +921,9 @@ http://localhost:8000/docs
 > **Demo video will be added here.**
 
 ```text
-[Demo Video Link]
+
+Uploading 15.09.2026_17.57.07_REC.mp4…
+
 ```
 
 The demonstration will show the complete application workflow, including crop disease detection and the Generative AI disease advisory feature.
