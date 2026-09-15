@@ -922,7 +922,13 @@ http://localhost:8000/docs
 
 ```text
 
-Uploading 15.09.2026_17.57.07_REC.mp4…
+
+
+
+
+https://github.com/user-attachments/assets/f0459b02-213d-4aec-82ca-fbc7a99c40ac
+
+
 
 ```
 
@@ -930,15 +936,7 @@ The demonstration will show the complete application workflow, including crop di
 
 ---
 
-# Deployed Application
 
-> **Deployment link will be added here.**
-
-```text
-[Deployed Application Link]
-```
-
----
 
 # Project Requirements
 
